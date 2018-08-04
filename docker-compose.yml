@@ -6,17 +6,18 @@ services:
     volumes:
       - chain:/root/.hsd
     ports:
-      - "53:5300/udp" # recursive resolver
+      #- "53:5300/udp" # recursive resolver
       - "13037:13037" # testnet node
       - "13039:13039" # testnet wallet
-    command: hsd --rs-host=0.0.0.0 --rs-port=5300 --http-host='::' #--coinbase-address=COINBASE_ADDRESS --api-key=PASSWORD
+    command: hsd --rs-host=0.0.0.0 --rs-port=5300 --http-host='::' --api-key=PASSWORD #--coinbase-address=COINBASE_ADDRESS
 
-  #miner:
-  #  image: handshakeorg/hs-miner:nvidia
-  #  scale: 1
-  #  runtime: nvidia
-  #  restart: unless-stopped
-  #  command: hs-miner --rpc-host=hsd --rpc-pass=PASSWORD
+
+  miner:
+    image: handshakeorg/hs-miner:nvidia
+    scale: 1
+    runtime: nvidia
+    restart: unless-stopped
+    command: hs-miner --rpc-host=hsd --rpc-pass=PASSWORD
 
 
 volumes:
